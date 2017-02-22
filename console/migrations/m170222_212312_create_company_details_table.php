@@ -3,42 +3,40 @@
 use yii\db\Migration;
 
 /**
- * Handles the creation of table `person_details`.
+ * Handles the creation of table `company_details`.
  * Has foreign keys to the tables:
  *
  * - `user`
  */
-class m170222_204559_create_person_details_table extends Migration
+class m170222_212312_create_company_details_table extends Migration
 {
     /**
      * @inheritdoc
      */
     public function up()
     {
-        $this->createTable('person_details', [
+        $this->createTable('company_details', [
             'id' => $this->primaryKey(),
             'user_id' => $this->integer()->notNull(),
-            'title' => $this->smallInteger()->defaultValue(0),
-            'first_name' => $this->string(30)->defaultValue(''),
-            'last_name' => $this->string(30)->defaultValue(''),
-            'unique_number' => $this->string(30)->defaultValue(''),
-            'passport_number' => $this->string(30)->defaultValue(''),
-            'contact_email' => $this->string(50)->defaultValue(''),
+            'company_name' => $this->string(200),
+            'registration_number' => $this->string(30)->defaultValue(''),
+            'duns_number' => $this->string(30)->defaultValue(''),
+            'contact_name_id' => $this->integer()->defaultValue(0),
             'created_at' => $this->dateTime(),
             'updated_at' => $this->dateTime(),
         ]);
 
         // creates index for column `user_id`
         $this->createIndex(
-            'idx-person_details-user_id',
-            'person_details',
+            'idx-company_details-user_id',
+            'company_details',
             'user_id'
         );
 
         // add foreign key for table `user`
         $this->addForeignKey(
-            'fk-person_details-user_id',
-            'person_details',
+            'fk-company_details-user_id',
+            'company_details',
             'user_id',
             'user',
             'id',
@@ -54,16 +52,16 @@ class m170222_204559_create_person_details_table extends Migration
     {
         // drops foreign key for table `user`
         $this->dropForeignKey(
-            'fk-person_details-user_id',
-            'person_details'
+            'fk-company_details-user_id',
+            'company_details'
         );
 
         // drops index for column `user_id`
         $this->dropIndex(
-            'idx-person_details-user_id',
-            'person_details'
+            'idx-company_details-user_id',
+            'company_details'
         );
 
-        $this->dropTable('person_details');
+        $this->dropTable('company_details');
     }
 }

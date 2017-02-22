@@ -3,21 +3,21 @@
 use yii\db\Migration;
 
 /**
- * Handles the creation of table `person_details`.
+ * Handles the creation of table `temp_person_details`.
  * Has foreign keys to the tables:
  *
- * - `user`
+ * - `temp_user`
  */
-class m170222_204559_create_person_details_table extends Migration
+class m170222_213350_create_temp_person_details_table extends Migration
 {
     /**
      * @inheritdoc
      */
     public function up()
     {
-        $this->createTable('person_details', [
+        $this->createTable('temp_person_details', [
             'id' => $this->primaryKey(),
-            'user_id' => $this->integer()->notNull(),
+            'temp_user_id' => $this->integer()->notNull(),
             'title' => $this->smallInteger()->defaultValue(0),
             'first_name' => $this->string(30)->defaultValue(''),
             'last_name' => $this->string(30)->defaultValue(''),
@@ -28,19 +28,19 @@ class m170222_204559_create_person_details_table extends Migration
             'updated_at' => $this->dateTime(),
         ]);
 
-        // creates index for column `user_id`
+        // creates index for column `temp_user_id`
         $this->createIndex(
-            'idx-person_details-user_id',
-            'person_details',
-            'user_id'
+            'idx-temp_person_details-temp_user_id',
+            'temp_person_details',
+            'temp_user_id'
         );
 
-        // add foreign key for table `user`
+        // add foreign key for table `temp_user`
         $this->addForeignKey(
-            'fk-person_details-user_id',
-            'person_details',
-            'user_id',
-            'user',
+            'fk-temp_person_details-temp_user_id',
+            'temp_person_details',
+            'temp_user_id',
+            'temp_user',
             'id',
             'CASCADE',
             'CASCADE'
@@ -52,18 +52,18 @@ class m170222_204559_create_person_details_table extends Migration
      */
     public function down()
     {
-        // drops foreign key for table `user`
+        // drops foreign key for table `temp_user`
         $this->dropForeignKey(
-            'fk-person_details-user_id',
-            'person_details'
+            'fk-temp_person_details-temp_user_id',
+            'temp_person_details'
         );
 
-        // drops index for column `user_id`
+        // drops index for column `temp_user_id`
         $this->dropIndex(
-            'idx-person_details-user_id',
-            'person_details'
+            'idx-temp_person_details-temp_user_id',
+            'temp_person_details'
         );
 
-        $this->dropTable('person_details');
+        $this->dropTable('temp_person_details');
     }
 }
