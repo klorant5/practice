@@ -18,6 +18,7 @@ return [
           ],
     ],
     'components' => [
+
         'log' => [
             'targets' => [
                 [
@@ -26,6 +27,7 @@ return [
                 ],
             ],
         ],
+
     ],
     'params' => $params,
 ];
