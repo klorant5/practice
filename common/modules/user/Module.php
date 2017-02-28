@@ -1,16 +1,16 @@
 <?php
 
-namespace common\modules\phone;
+namespace common\modules\user;
 
 /**
- * phone module definition class
+ * user module definition class
  */
-class Model extends \yii\base\Module
+class Module extends \yii\base\Module
 {
     /**
      * @inheritdoc
      */
-    public $controllerNamespace = 'common\modules\phone\controllers';
+    public $controllerNamespace = 'common\modules\user\controllers';
 
     /**
      * @inheritdoc

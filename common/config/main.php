@@ -33,5 +33,8 @@ return [
         'translatemanager' => [
             'class' => 'lajax\translatemanager\Module',
         ],
+        'signup' => [
+            'class' => \common\modules\signup\Module::class,
+        ]
     ],
 ];

@@ -3,6 +3,9 @@
 namespace common\modules\address\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "user_addresses".
@@ -26,7 +29,7 @@ use Yii;
  *
  * @property User $user
  */
-class UserAddress extends \yii\db\ActiveRecord
+class UserAddress extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -34,6 +37,23 @@ class UserAddress extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'user_addresses';
+    }
+
+    /**
+     * @inheritdoc
+     * @return array
+     */
+    public function behaviors() {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+                'value' => new Expression('NOW()'),
+            ],
+        ];
     }
 
     /**

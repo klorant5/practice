@@ -1,16 +1,16 @@
 <?php
 
-namespace common\modules\signup;
+namespace common\modules\address;
 
 /**
- * signup module definition class
+ * address module definition class
  */
-class Model extends \yii\base\Module
+class Module extends \yii\base\Module
 {
     /**
      * @inheritdoc
      */
-    public $controllerNamespace = 'common\modules\signup\controllers';
+    public $controllerNamespace = 'common\modules\address\controllers';
 
     /**
      * @inheritdoc
