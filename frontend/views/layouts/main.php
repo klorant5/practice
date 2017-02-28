@@ -3,6 +3,8 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
+use lajax\languagepicker\widgets\LanguagePicker;
+use lajax\translatemanager\widgets\ToggleTranslate;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
@@ -55,11 +57,20 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => $menuItems,
-    ]);
-    NavBar::end();
+    ]); ?>
+    <div class="navbar-text pull-right">
+    <?= LanguagePicker::widget([
+        'skin' => LanguagePicker::SKIN_DROPDOWN,
+        'size' => LanguagePicker::SIZE_LARGE
+    ]); ?>
+    </div>
+    <?php NavBar::end();
     ?>
 
     <div class="container">
+        <?= ToggleTranslate::widget([
+            'position' => ToggleTranslate::POSITION_BOTTOM_LEFT,
+        ]) ?>
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>

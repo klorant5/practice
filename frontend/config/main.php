@@ -9,9 +9,19 @@ $params = array_merge(
 return [
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'language' => 'en',
+    'bootstrap' => ['log', 'translatemanager', 'languagepicker'],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
+        'translatemanager' => [
+            'class' => 'lajax\translatemanager\Component'
+        ],
+        'languagepicker' => [
+            'class' => 'lajax\languagepicker\Component',
+            'languages' => function () {                        // List of available languages (icons only)
+                return array_keys(\lajax\translatemanager\models\Language::getLanguageNames(true));
+            }
+        ],
         'request' => [
             'csrfParam' => '_csrf-frontend',
         ],

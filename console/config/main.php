@@ -15,7 +15,8 @@ return [
         'fixture' => [
             'class' => 'yii\console\controllers\FixtureController',
             'namespace' => 'common\fixtures',
-          ],
+        ],
+        'translate' => \lajax\translatemanager\commands\TranslatemanagerController::className()
     ],
     'components' => [
 
