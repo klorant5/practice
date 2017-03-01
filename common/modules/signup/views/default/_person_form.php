@@ -12,19 +12,22 @@ $form = ActiveForm::begin([
 
     <div class="row">
         <div class="col-sm-6 text-center">
-            <h2><?= Yii::t("signup", "Company details") ?></h2>
+            <h2><?= Yii::t("signup", "Person details") ?></h2>
         </div>
         <div class="col-sm-6 text-center">
-            <h2><?= Yii::t("signup", "Office address") ?></h2>
+            <h2><?= Yii::t("signup", "Postal address") ?></h2>
         </div>
     </div>
 
     <div class="row">
         <div class="col-sm-6">
-            <?= $form->field($model, 'location')->textInput() ?>
-            <?= $form->field($model, 'company_name')->textInput() ?>
-            <?= $form->field($model, 'company_regnum')->textInput() ?>
-            <?= $form->field($model, 'duns_number')->textInput() ?>
+            <?= $form->field($model, 'nationality')->textInput() ?>
+
+            <?= $this->render("_name_inputs", compact(["form", "model", "signUpType"])) ?>
+
+
+            <?= $form->field($model, 'nric')->textInput() ?>
+            <?= $form->field($model, 'passport_number')->textInput() ?>
         </div>
         <div class="col-sm-6">
             <?= $this->render('_location_inputs', compact(['form', 'model'])) ?>
@@ -34,13 +37,13 @@ $form = ActiveForm::begin([
 
     <div class="row">
         <div class="col-sm-6 text-center">
-            <h2><?= Yii::t("signup", "Contact informations") ?></h2>
+            <h2><?= Yii::t("signup", "Contacts") ?></h2>
         </div>
     </div>
 
     <div class="row">
         <div class="col-sm-6">
-            <?= $this->render("_name_inputs", compact(["form", "model", "signUpType"])) ?>
+
             <?= $this->render("_contact_email_and_phone", compact(["form", "model", "signUpType"])) ?>
         </div>
     </div>

@@ -1,8 +1,12 @@
 <?php
 
+use common\modules\signup\models\CompanySignUpForm;
+use common\modules\signup\models\PersonSignUpForm;
 use yii\bootstrap\Tabs;
 
 
+$dcForm = new CompanySignUpForm();
+$dcForm->isDebtCollector =1;
 
 $this->title = 'Signup';
 $this->params['breadcrumbs'][] = $this->title;
@@ -23,7 +27,24 @@ $this->params['breadcrumbs'][] = $this->title;
     'items' => [
         [
             'label' => 'Company',
-            'content' => $this->render("_company_form")
-        ]
+            'content' => $this->render("_company_form", [
+                'signUpType' => 1,
+                'model' => new CompanySignUpForm(),
+            ])
+        ],
+        [
+            'label' => 'Person',
+            'content' => $this->render("_person_form", [
+                'signUpType' => 2,
+                'model' => new PersonSignUpForm(),
+            ])
+        ],
+        [
+            'label' => 'Debt collector',
+            'content' => $this->render("_company_form", [
+                'signUpType' => 3,
+                'model' => $dcForm,
+            ])
+        ],
     ]
 ]) ?>

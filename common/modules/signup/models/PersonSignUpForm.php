@@ -1,22 +1,30 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: lorant
+ * Date: 2017.03.01.
+ * Time: 22:02
+ */
 
 namespace common\modules\signup\models;
-use yii\base\Model;
-use Yii;
 
-class CompanySignUpForm extends Model
+
+use Yii;
+use yii\base\Model;
+
+class PersonSignUpForm extends Model
 {
 
+
     public $userType; //????kell ez?
-    public $location;
+    public $nationality;
     public $country;
-    public $company_name;
     public $city;
     public $zip;
-    public $company_regnum;
+    public $nric;
     public $building_number;
     public $street;
-    public $duns_number;
+    public $passport_number;
     public $floor;
     public $door;
     public $contact_title;
@@ -26,8 +34,6 @@ class CompanySignUpForm extends Model
     public $contact_phone_type;
     public $contact_phone_country_code;
     public $contact_phone_number;
-
-    public $isDebtCollector = 0;
 
     /**
      * @inheritdoc
@@ -69,5 +75,4 @@ class CompanySignUpForm extends Model
             'contact_phone_number' => Yii::t('signup', 'Phone number')          //
         ];
     }
-
 }
