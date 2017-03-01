@@ -1,8 +1,14 @@
 <?php
 
 $contactMailInput = $form->field($model, 'contact_email')->textInput();
+$contactPhoneType = $form->field($model, 'contact_phone_type')->dropDownList([
+    0 => Yii::t("signup", "Please choose a phone type!"),
+    1 => Yii::t("signup", "Cell phone"),        //TODO
+    2 => Yii::t("signup", "Wired phone")
+]);
 if($signUpType == 2){
     $contactMailInput->label(Yii::t("signup", "Email"));
+    $contactPhoneType->label(Yii::t("signup", "Phone"));
 }
 
 ?>
@@ -14,11 +20,7 @@ if($signUpType == 2){
 </div>
 <div class="row">
     <div class="col-sm-12">
-        <?= $form->field($model, 'contact_phone_type')->dropDownList([
-            0 => Yii::t("signup", "Please choose a phone type!"),
-            1 => Yii::t("signup", "Cell phone"),        //TODO
-            2 => Yii::t("signup", "Wired phone")
-        ]) ?>
+        <?= $contactPhoneType ?>
     </div>
 </div>
 <div class="row">
