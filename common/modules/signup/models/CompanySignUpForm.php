@@ -1,6 +1,7 @@
 <?php
 
 namespace common\modules\signup\models;
+use common\modules\signup\controllers\SignUpManager;
 use yii\base\Model;
 use Yii;
 
@@ -27,7 +28,7 @@ class CompanySignUpForm extends Model
     public $contact_phone_country_code;
     public $contact_phone_number;
 
-    public $isDebtCollector = 0;
+    public $debt_collector = 0;
 
     /**
      * @inheritdoc
@@ -38,7 +39,7 @@ class CompanySignUpForm extends Model
             [['location', 'country', 'company_name', 'city', 'zip', 'company_regnum', 'building_number',
                 'street', 'duns_number', 'floor', 'door', 'contact_title', 'contact_firstname',
                 'contact_lastname', 'contact_email', 'contact_phone_type', 'contact_phone_country_code',
-                'contact_phone_number'], 'safe'],
+                'contact_phone_number', 'debt_collector'], 'safe'],
 //            [['user_id', 'is_temp', 'address_type', 'country_id'], 'integer'],
 //            [['created_at', 'updated_at'], 'safe'],
         ];
@@ -68,6 +69,11 @@ class CompanySignUpForm extends Model
             'contact_phone_country_code' => Yii::t('signup', 'Country code'),   //
             'contact_phone_number' => Yii::t('signup', 'Phone number')          //
         ];
+    }
+
+    public function save() {
+        $signUp = new SignUpManager($this);
+        return $signUp->save();
     }
 
 }

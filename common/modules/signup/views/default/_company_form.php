@@ -4,6 +4,7 @@ use common\modules\signup\models\CompanySignUpForm;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
+
 $form = ActiveForm::begin([
     'enableClientValidation' => false,
     'enableAjaxValidation' => true
@@ -21,6 +22,9 @@ $form = ActiveForm::begin([
 
     <div class="row">
         <div class="col-sm-6">
+            <div class="hide">
+                <?= $form->field($model, "debt_collector")->hiddenInput()->label(false) ?>
+            </div>
             <?= $form->field($model, 'location')->textInput() ?>
             <?= $form->field($model, 'company_name')->textInput() ?>
             <?= $form->field($model, 'company_regnum')->textInput() ?>

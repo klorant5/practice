@@ -9,6 +9,7 @@
 namespace common\modules\signup\models;
 
 
+use common\modules\signup\controllers\SignUpManager;
 use Yii;
 use yii\base\Model;
 
@@ -74,5 +75,11 @@ class PersonSignUpForm extends Model
             'contact_phone_country_code' => Yii::t('signup', 'Country code'),   //
             'contact_phone_number' => Yii::t('signup', 'Phone number')          //
         ];
+    }
+
+    public function save()
+    {
+        $signUp = new SignUpManager($this);
+        return $signUp->save();
     }
 }

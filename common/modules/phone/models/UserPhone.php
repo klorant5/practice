@@ -2,7 +2,9 @@
 
 namespace common\modules\phone\models;
 
+use common\models\User;
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "user_phones".
@@ -23,7 +25,7 @@ use Yii;
  *
  * @property User $user
  */
-class UserPhone extends \yii\db\ActiveRecord
+class UserPhone extends ActiveRecord
 {
     /**
      * @inheritdoc

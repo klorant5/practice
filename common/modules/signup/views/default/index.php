@@ -6,7 +6,7 @@ use yii\bootstrap\Tabs;
 
 
 $dcForm = new CompanySignUpForm();
-$dcForm->isDebtCollector =1;
+$dcForm->debt_collector = 1;
 
 $this->title = 'Signup';
 $this->params['breadcrumbs'][] = $this->title;

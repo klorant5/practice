@@ -2,6 +2,7 @@
 
 namespace common\modules\address\models;
 
+use common\models\User;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
@@ -31,6 +32,11 @@ use yii\db\Expression;
  */
 class UserAddress extends ActiveRecord
 {
+
+    const TYPE_OFFICE_ADDRESS = 1;
+    const TYPE_BUSINESS_ADDRESS = 2;
+
+
     /**
      * @inheritdoc
      */

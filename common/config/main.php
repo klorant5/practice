@@ -35,6 +35,12 @@ return [
         ],
         'signup' => [
             'class' => \common\modules\signup\Module::class,
-        ]
+        ],
+        'phone' => [
+            'class' => \common\modules\phone\Module::class,
+        ],
+        'address' => [
+            'class' => \common\modules\address\Module::class,
+        ],
     ],
 ];
