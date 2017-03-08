@@ -5,6 +5,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 $form = ActiveForm::begin([
+    'action' => ["/signup/default/handle-person-sign-up"],
     'enableClientValidation' => false,
     'enableAjaxValidation' => true
 ]); ?>
@@ -21,6 +22,9 @@ $form = ActiveForm::begin([
 
     <div class="row">
         <div class="col-sm-6">
+            <div class="hide">
+                <?= $form->field($model, "debt_collector")->hiddenInput()->label(false) ?>
+            </div>
             <?= $form->field($model, 'nationality')->textInput() ?>
 
             <?= $this->render("_name_inputs", compact(["form", "model", "signUpType"])) ?>

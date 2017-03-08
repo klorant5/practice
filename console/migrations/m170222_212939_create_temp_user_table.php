@@ -19,7 +19,7 @@ class m170222_212939_create_temp_user_table extends Migration
             'status' => $this->smallInteger()->defaultValue(0),
             'reference_type' => $this->smallInteger()->defaultValue(0),
             'created_at' => $this->dateTime(),
-            'updated_at' => $this->dateTime(),
+            'updated_at' => $this->dateTime()->defaultValue("0000-00-00 00:00:00"),
         ]);
     }
 

@@ -8,29 +8,26 @@ use yii\db\ActiveRecord;
 use yii\db\Expression;
 
 /**
- * This is the model class for table "temp_person_details".
+ * This is the model class for table "temp_user_phones".
  *
  * @property integer $id
  * @property integer $temp_user_id
- * @property integer $title
- * @property string $first_name
- * @property string $last_name
- * @property string $unique_number
- * @property string $passport_number
- * @property string $contact_email
+ * @property integer $country_code
+ * @property string $phone_number
+ * @property integer $phone_type
  * @property string $created_at
  * @property string $updated_at
  *
  * @property TempUser $tempUser
  */
-class TempPersonDetails extends ActiveRecord
+class TempUserPhone extends ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'temp_person_details';
+        return 'temp_user_phones';
     }
 
     /**
@@ -57,11 +54,9 @@ class TempPersonDetails extends ActiveRecord
     public function rules()
     {
         return [
-            [['temp_user_id'], 'required'],
-            [['temp_user_id', 'title'], 'integer'],
-            [['created_at', 'updated_at'], 'safe'],
-            [['first_name', 'last_name', 'unique_number', 'passport_number'], 'string', 'max' => 30],
-            [['contact_email'], 'string', 'max' => 50],
+            [['temp_user_id'], 'integer'],
+            [['country_code', 'phone_number', 'phone_type', 'created_at', 'updated_at'], 'safe'],
+            [['phone_number'], 'string', 'max' => 20],
             [['temp_user_id'], 'exist', 'skipOnError' => true, 'targetClass' => TempUser::className(), 'targetAttribute' => ['temp_user_id' => 'id']],
         ];
     }
@@ -72,16 +67,13 @@ class TempPersonDetails extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('signup', 'ID'),
+            'id'           => Yii::t('signup', 'ID'),
             'temp_user_id' => Yii::t('signup', 'Temp User ID'),
-            'title' => Yii::t('signup', 'Title'),
-            'first_name' => Yii::t('signup', 'First Name'),
-            'last_name' => Yii::t('signup', 'Last Name'),
-            'unique_number' => Yii::t('signup', 'Unique Number'),
-            'passport_number' => Yii::t('signup', 'Passport Number'),
-            'contact_email' => Yii::t('signup', 'Contact Email'),
-            'created_at' => Yii::t('signup', 'Created At'),
-            'updated_at' => Yii::t('signup', 'Updated At'),
+            'country_code' => Yii::t('signup', 'Country Code'),
+            'phone_number' => Yii::t('signup', 'Phone Number'),
+            'phone_type'   => Yii::t('signup', 'Phone Type'),
+            'created_at'   => Yii::t('signup', 'Created At'),
+            'updated_at'   => Yii::t('signup', 'Updated At'),
         ];
     }
 
@@ -90,6 +82,6 @@ class TempPersonDetails extends ActiveRecord
      */
     public function getTempUser()
     {
-        return $this->hasOne(TempUser::className(), ['id' => 'temp_user_id'])->inverseOf("tempPersonDetails");
+        return $this->hasOne(TempUser::className(), ['id' => 'temp_user_id']);
     }
 }

@@ -4,7 +4,9 @@ namespace common\modules\phone\models;
 
 use common\models\User;
 use Yii;
+use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "user_phones".
@@ -18,7 +20,6 @@ use yii\db\ActiveRecord;
  * @property string $verification_code
  * @property integer $send_count
  * @property integer $try_count
- * @property integer $is_temp
  * @property string $verified_at
  * @property string $created_at
  * @property string $updated_at
@@ -37,15 +38,34 @@ class UserPhone extends ActiveRecord
 
     /**
      * @inheritdoc
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+            [
+                'class'      => TimestampBehavior::className(),
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+                'value'      => new Expression('NOW()'),
+            ],
+        ];
+    }
+
+    /**
+     * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['user_id', 'country_code', 'phone_type', 'verified', 'send_count', 'try_count', 'is_temp'], 'integer'],
-            [['verified_at', 'created_at', 'updated_at'], 'safe'],
+            [['user_id'], 'required'],
+            [['user_id', 'country_code', 'phone_type', 'verified', 'send_count', 'try_count'], 'integer'],
+            [['verified','send_count', 'try_count','verified_at', 'created_at', 'updated_at'], 'safe'],
             [['phone_number'], 'string', 'max' => 20],
             [['verification_code'], 'string', 'max' => 10],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
+//            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -64,7 +84,6 @@ class UserPhone extends ActiveRecord
             'verification_code' => Yii::t('phone', 'Verification Code'),
             'send_count' => Yii::t('phone', 'Send Count'),
             'try_count' => Yii::t('phone', 'Try Count'),
-            'is_temp' => Yii::t('phone', 'Is Temp'),
             'verified_at' => Yii::t('phone', 'Verified At'),
             'created_at' => Yii::t('phone', 'Created At'),
             'updated_at' => Yii::t('phone', 'Updated At'),

@@ -23,7 +23,7 @@ class m170222_212312_create_company_details_table extends Migration
             'duns_number' => $this->string(30)->defaultValue(''),
             'contact_name_id' => $this->integer()->defaultValue(0),
             'created_at' => $this->dateTime(),
-            'updated_at' => $this->dateTime(),
+            'updated_at' => $this->dateTime()->defaultValue("0000-00-00 00:00:00"),
         ]);
 
         // creates index for column `user_id`

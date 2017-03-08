@@ -3,8 +3,10 @@
 namespace common\modules\signup\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "temp_company_details".
@@ -14,7 +16,9 @@ use yii\db\ActiveRecord;
  * @property string $company_name
  * @property string $registration_number
  * @property string $duns_number
- * @property integer $contact_name_id
+ * @property integer $contact_name_title
+ * @property string $contact_name_first
+ * @property string $contact_name_last
  * @property string $created_at
  * @property string $updated_at
  *
@@ -32,13 +36,32 @@ class TempCompanyDetails extends ActiveRecord
 
     /**
      * @inheritdoc
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+            [
+                'class'      => TimestampBehavior::className(),
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+                'value'      => new Expression('NOW()'),
+            ],
+        ];
+    }
+
+    /**
+     * @inheritdoc
      */
     public function rules()
     {
         return [
             [['temp_user_id'], 'required'],
-            [['temp_user_id', 'contact_name_id'], 'integer'],
-            [['created_at', 'updated_at'], 'safe'],
+            [['temp_user_id'], 'integer'],
+            [['created_at', 'updated_at', 'company_name', 'registration_number', 'duns_number', 'contact_name_title',
+                'contact_name_first', 'contact_name_last'], 'safe'],
             [['company_name'], 'string', 'max' => 200],
             [['registration_number', 'duns_number'], 'string', 'max' => 30],
             [['temp_user_id'], 'exist', 'skipOnError' => true, 'targetClass' => TempUser::className(), 'targetAttribute' => ['temp_user_id' => 'id']],

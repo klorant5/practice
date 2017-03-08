@@ -21,9 +21,11 @@ class m170222_213209_create_temp_company_details_table extends Migration
             'company_name' => $this->string(200),
             'registration_number' => $this->string(30)->defaultValue(''),
             'duns_number' => $this->string(30)->defaultValue(''),
-            'contact_name_id' => $this->integer()->defaultValue(0),
+            'contact_name_title' => $this->smallInteger()->defaultValue(0),
+            'contact_name_first' => $this->string(100)->defaultValue(""),
+            'contact_name_last' => $this->string(100)->defaultValue(""),
             'created_at' => $this->dateTime(),
-            'updated_at' => $this->dateTime(),
+            'updated_at' => $this->dateTime()->defaultValue("0000-00-00 00:00:00"),
         ]);
 
         // creates index for column `temp_user_id`

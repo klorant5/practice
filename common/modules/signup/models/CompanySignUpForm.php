@@ -1,9 +1,10 @@
 <?php
 
 namespace common\modules\signup\models;
+
 use common\modules\signup\controllers\SignUpManager;
-use yii\base\Model;
 use Yii;
+use yii\base\Model;
 
 class CompanySignUpForm extends Model
 {
@@ -33,9 +34,10 @@ class CompanySignUpForm extends Model
     /**
      * @inheritdoc
      */
-    public function rules() {
+    public function rules()
+    {
         return [
-            [['location', 'country'], 'required'],
+            [['location', 'country', 'company_name'], 'required'],
             [['location', 'country', 'company_name', 'city', 'zip', 'company_regnum', 'building_number',
                 'street', 'duns_number', 'floor', 'door', 'contact_title', 'contact_firstname',
                 'contact_lastname', 'contact_email', 'contact_phone_type', 'contact_phone_country_code',
@@ -48,32 +50,41 @@ class CompanySignUpForm extends Model
     /**
      * @inheritdoc
      */
-    public function attributeLabels() {
+    public function attributeLabels()
+    {
         return [
-            'location' => Yii::t('signup', 'Location'),
-            'country' => Yii::t('signup', 'Country'),
-            'company_name' => Yii::t('signup', 'Company name'),
-            'city' => Yii::t('signup', 'City'),
-            'zip' => Yii::t('signup', 'Zip code'),
-            'company_regnum' => Yii::t('signup', 'Company registration number'),
-            'building_number' => Yii::t('signup', 'Building number'),
-            'street' => Yii::t('signup', 'Street'),
-            'duns_number' => Yii::t('signup', 'D-U-N-S number'),
-            'floor' => Yii::t('signup', 'Floor'),
-            'door'  => Yii::t('signup', 'Door'),
-            'contact_title' => Yii::t('signup', 'Title'),         //
-            'contact_firstname' => Yii::t('signup', 'First name'), //
-            'contact_lastname' => Yii::t('signup', 'Last name'),  //
-            'contact_email' => Yii::t('signup', 'Contact email'),
-            'contact_phone_type' => Yii::t('signup', 'Contact person phone'),
+            'location'                   => Yii::t('signup', 'Location'),
+            'country'                    => Yii::t('signup', 'Country'),
+            'company_name'               => Yii::t('signup', 'Company name'),
+            'city'                       => Yii::t('signup', 'City'),
+            'zip'                        => Yii::t('signup', 'Zip code'),
+            'company_regnum'             => Yii::t('signup', 'Company registration number'),
+            'building_number'            => Yii::t('signup', 'Building number'),
+            'street'                     => Yii::t('signup', 'Street'),
+            'duns_number'                => Yii::t('signup', 'D-U-N-S number'),
+            'floor'                      => Yii::t('signup', 'Floor'),
+            'door'                       => Yii::t('signup', 'Door'),
+            'contact_title'              => Yii::t('signup', 'Title'),         //
+            'contact_firstname'          => Yii::t('signup', 'First name'), //
+            'contact_lastname'           => Yii::t('signup', 'Last name'),  //
+            'contact_email'              => Yii::t('signup', 'Contact email'),
+            'contact_phone_type'         => Yii::t('signup', 'Contact person phone'),
             'contact_phone_country_code' => Yii::t('signup', 'Country code'),   //
-            'contact_phone_number' => Yii::t('signup', 'Phone number')          //
+            'contact_phone_number'       => Yii::t('signup', 'Phone number')          //
         ];
     }
 
-    public function save() {
+    public function save()
+    {
         $signUp = new SignUpManager($this);
-        return $signUp->save();
+        $ret = true;
+        if (!$signUp->save()) {
+            $ret = false;
+            Yii::$app->session->setFlash("signuperror", !empty($signUp->errorMsg) ? $signUp->errorMsg :
+                "Internal Error. Please try again later.");
+        }
+
+        return $ret;
     }
 
 }

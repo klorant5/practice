@@ -6,6 +6,7 @@ use yii\widgets\ActiveForm;
 
 
 $form = ActiveForm::begin([
+    'action' => ["/signup/default/handle-company-sign-up"],
     'enableClientValidation' => false,
     'enableAjaxValidation' => true
 ]); ?>

@@ -7,6 +7,7 @@ use common\modules\signup\models\PersonSignUpForm;
 use Yii;
 use yii\web\Controller;
 use yii\web\Response;
+use yii\widgets\ActiveForm;
 
 /**
  * Default controller for the `signup` module
@@ -22,6 +23,10 @@ class DefaultController extends Controller
         return $this->render('index');
     }
 
+    /**
+     * A company formokat validálja/menti
+     * @return Response
+     */
     public function actionHandleCompanySignUp()
     {
         $model = new CompanySignUpForm();
@@ -29,11 +34,16 @@ class DefaultController extends Controller
         if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
             Yii::$app->response->format = Response::FORMAT_JSON;
 
+            return ActiveForm::validate($model);
         } elseif ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(["thank-you"]);
         }
     }
 
+    /**
+     * A person formot validálja/menti
+     * @return Response
+     */
     public function actionHandlePersonSignUp()
     {
         $model = new PersonSignUpForm();
@@ -41,6 +51,7 @@ class DefaultController extends Controller
         if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
             Yii::$app->response->format = Response::FORMAT_JSON;
 
+            return ActiveForm::validate($model);
         } elseif ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(["thank-you"]);
         }

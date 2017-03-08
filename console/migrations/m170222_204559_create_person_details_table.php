@@ -25,7 +25,7 @@ class m170222_204559_create_person_details_table extends Migration
             'passport_number' => $this->string(30)->defaultValue(''),
             'contact_email' => $this->string(50)->defaultValue(''),
             'created_at' => $this->dateTime(),
-            'updated_at' => $this->dateTime(),
+            'updated_at' => $this->dateTime()->defaultValue("0000-00-00 00:00:00"),
         ]);
 
         // creates index for column `user_id`

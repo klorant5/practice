@@ -18,7 +18,6 @@ class m170223_211108_create_user_addresses_table extends Migration
         $this->createTable('user_addresses', [
             'id' => $this->primaryKey(),
             'user_id' => $this->integer(),
-            'is_temp' => $this->smallInteger()->defaultValue(0),
             'address_type' => $this->smallInteger()->defaultValue(0),
             'country_id' => $this->integer()->defaultValue(0),
             'city' => $this->string(30)->defaultValue(''),
@@ -31,7 +30,7 @@ class m170223_211108_create_user_addresses_table extends Migration
             'district' => $this->string(100)->defaultValue(''),
             'zipcode' => $this->string(20)->defaultValue(''),
             'created_at' => $this->dateTime(),
-            'updated_at' => $this->dateTime(),
+            'updated_at' => $this->dateTime()->defaultValue("0000-00-00 00:00:00"),
         ]);
 
         // creates index for column `user_id`

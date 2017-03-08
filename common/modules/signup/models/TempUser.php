@@ -4,8 +4,10 @@ namespace common\modules\signup\models;
 
 use common\modules\address\models\UserAddress;
 use Yii;
+use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "temp_user".
@@ -17,6 +19,9 @@ use yii\db\ActiveRecord;
  * @property integer $reference_type
  * @property string $created_at
  * @property string $updated_at
+ * @property integer $tld
+ * @property integer $nationality
+ * @property integer debt_collector
  *
  * @property TempCompanyDetails[] $tempCompanyDetails
  * @property TempPersonDetails[] $tempPersonDetails
@@ -34,6 +39,24 @@ class TempUser extends ActiveRecord
      */
     public static function tableName() {
         return 'temp_user';
+    }
+
+    /**
+     * @inheritdoc
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+            [
+                'class'      => TimestampBehavior::className(),
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+                'value'      => new Expression('NOW()'),
+            ],
+        ];
     }
 
     /**

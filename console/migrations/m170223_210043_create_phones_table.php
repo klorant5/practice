@@ -25,10 +25,9 @@ class m170223_210043_create_phones_table extends Migration
             'verification_code' => $this->string(10)->defaultValue(''),
             'send_count' => $this->smallInteger()->defaultValue(0),
             'try_count' => $this->smallInteger()->defaultValue(0),
-            'is_temp' => $this->smallInteger()->defaultValue(0),
-            'verified_at' => $this->dateTime(),
+            'verified_at' => $this->dateTime()->defaultValue("0000-00-00 00:00:00"),
             'created_at' => $this->dateTime(),
-            'updated_at' => $this->dateTime(),
+            'updated_at' => $this->dateTime()->defaultValue("0000-00-00 00:00:00"),
         ]);
 
         // creates index for column `user_id`
