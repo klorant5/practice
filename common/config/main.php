@@ -42,5 +42,8 @@ return [
         'address' => [
             'class' => \common\modules\address\Module::class,
         ],
+        'user' => [
+            'class' => \common\modules\user\Module::class,
+        ],
     ],
 ];

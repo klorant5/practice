@@ -4,8 +4,6 @@ namespace common\modules\signup\controllers;
 
 
 use common\models\User;
-use common\modules\address\models\UserAddress;
-use common\modules\phone\models\UserPhone;
 use common\modules\signup\models\CompanySignUpForm;
 use common\modules\signup\models\PersonSignUpForm;
 use common\modules\signup\models\TempCompanyDetails;
@@ -15,7 +13,6 @@ use common\modules\signup\models\TempUserAddress;
 use common\modules\signup\models\TempUserPhone;
 use Yii;
 use yii\base\Exception;
-use yii\base\Model;
 
 class SignUpManager
 {
@@ -137,7 +134,8 @@ class SignUpManager
         } catch (Exception $exception) {
             $transaction->rollBack();
             $this->errorMsg = $exception->getMessage();
-Yii::trace($this->errorMsg);
+            Yii::trace($this->errorMsg);
+
             return false;
         }
 

@@ -29,9 +29,9 @@ use yii\db\Expression;
 class TempUser extends ActiveRecord
 {
 
-    const TYPE_NEW = 1;
-    const TYPE_CLOSED_APPROVED = 2;
-    const TYPE_CLOSED_REJECTED = 3;
+    const STATUS_NEW = 1;
+    const STATUS_CLOSED_APPROVED = 2;
+    const STATUS_CLOSED_REJECTED = 3;
 
 
     /**
