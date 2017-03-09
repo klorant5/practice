@@ -17,6 +17,9 @@ return [
             'layout' => 'left-menu', // defaults to null, using the application's layout without the menu
             // other available values are 'right-menu' and 'top-menu'
         ],
+        'user' => [
+            'class' => \backend\modules\user\Module::class
+        ]
     ],
     'components' => [
         'authManager'  => [

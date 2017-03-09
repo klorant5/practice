@@ -7,7 +7,7 @@ use yii\helpers\Html;
 use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
-/* @var $searchModel common\modules\user\models\searches\TempUserSearch */
+/* @var $searchModel backend\modules\user\models\searches\TempUserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('user', 'Temp Users');

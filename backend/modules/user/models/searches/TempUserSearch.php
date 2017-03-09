@@ -1,11 +1,10 @@
 <?php
 
-namespace common\modules\user\models\searches;
+namespace backend\modules\user\models\searches;
 
-use Yii;
+use common\modules\signup\models\TempUser;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\modules\signup\models\TempUser;
 
 /**
  * TempUserSearch represents the model behind the search form about `common\modules\signup\models\TempUser`.
@@ -59,14 +58,14 @@ class TempUserSearch extends TempUser
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-            'type' => $this->type,
-            'status' => $this->status,
+            'id'             => $this->id,
+            'type'           => $this->type,
+            'status'         => $this->status,
             'reference_type' => $this->reference_type,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-            'tld' => $this->tld,
-            'nationality' => $this->nationality,
+            'created_at'     => $this->created_at,
+            'updated_at'     => $this->updated_at,
+            'tld'            => $this->tld,
+            'nationality'    => $this->nationality,
             'debt_collector' => $this->debt_collector,
         ]);
 

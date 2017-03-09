@@ -1,13 +1,16 @@
 <?php
 
-namespace common\modules\user\controllers;
+namespace backend\modules\user\controllers;
 
-use Yii;
+use backend\modules\user\models\searches\TempUserSearch;
+use backend\modules\user\models\TempUserSaveForm;
 use common\modules\signup\models\TempUser;
-use common\modules\user\models\searches\TempUserSearch;
+use Yii;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
+use yii\web\Response;
+use yii\widgets\ActiveForm;
 
 /**
  * AdminController implements the CRUD actions for TempUser model.
@@ -21,7 +24,7 @@ class AdminController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class'   => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -39,7 +42,7 @@ class AdminController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
+            'searchModel'  => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
@@ -84,8 +87,12 @@ class AdminController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+
+            return ActiveForm::validate($model);
+        } elseif ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->temp_user->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -116,7 +123,9 @@ class AdminController extends Controller
     protected function findModel($id)
     {
         if (($model = TempUser::findOne($id)) !== null) {
-            return $model;
+            $ret = new TempUserSaveForm();
+            $ret->temp_user = $model;
+            return $ret;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
