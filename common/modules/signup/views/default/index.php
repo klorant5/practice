@@ -1,12 +1,8 @@
 <?php
 
-use common\modules\signup\models\CompanySignUpForm;
-use common\modules\signup\models\PersonSignUpForm;
+use common\modules\signup\controllers\factories\SignUpFormFactory;
 use yii\bootstrap\Tabs;
 
-
-$dcForm = new CompanySignUpForm();
-$dcForm->debt_collector = 1;
 
 $this->title = 'Signup';
 $this->params['breadcrumbs'][] = $this->title;
@@ -26,25 +22,25 @@ $this->params['breadcrumbs'][] = $this->title;
 <?= Tabs::widget([
     'items' => [
         [
-            'label' => 'Company',
+            'label'   => 'Company',
             'content' => $this->render("_company_form", [
                 'signUpType' => 1,
-                'model' => new CompanySignUpForm(),
-            ])
+                'model'      => SignUpFormFactory::run(SignUpFormFactory::TYPE_COMPANY_FORM),
+            ]),
         ],
         [
-            'label' => 'Person',
+            'label'   => 'Person',
             'content' => $this->render("_person_form", [
                 'signUpType' => 2,
-                'model' => new PersonSignUpForm(),
-            ])
+                'model'      => SignUpFormFactory::run(SignUpFormFactory::TYPE_PERSON_FORM),
+            ]),
         ],
         [
-            'label' => 'Debt collector',
+            'label'   => 'Debt collector',
             'content' => $this->render("_company_form", [
                 'signUpType' => 3,
-                'model' => $dcForm,
-            ])
+                'model'      => SignUpFormFactory::run(SignUpFormFactory::TYPE_DEBT_COLLECTOR_FORM),
+            ]),
         ],
-    ]
+    ],
 ]) ?>

@@ -1,15 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: lorant
- * Date: 2017.03.01.
- * Time: 22:02
- */
 
 namespace common\modules\signup\models;
 
 
 use common\modules\signup\controllers\SignUpManager;
+use Faker\Factory;
 use Yii;
 use yii\base\Model;
 
@@ -37,6 +32,31 @@ class PersonSignUpForm extends Model
     public $contact_phone_number;
 
     public $debt_collector = 0;
+
+    public $fake_data = false;
+
+
+    public function __construct(array $config = [])
+    {
+        parent::__construct($config);
+        if($this->fake_data){
+
+            $faker = Factory::create();
+            $this->contact_email = $faker->email;
+            $this->street = $faker->streetAddress;
+            $this->building_number = $faker->buildingNumber;
+            $this->floor = rand(1, 10);
+            $this->door = rand(1, 10);
+            $this->zip = rand(10000, 99999);
+            $this->city = "Singapore";
+            $this->nric = $faker->randomNumber(7);
+            $this->contact_lastname = $faker->lastName;
+            $this->contact_firstname = $faker->firstNameMale;
+            $this->contact_phone_number = $faker->randomNumber(9);
+            $this->passport_number = $faker->randomNumber(8);
+
+        }
+    }
 
     /**
      * @inheritdoc
