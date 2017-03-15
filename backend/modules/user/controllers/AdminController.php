@@ -85,7 +85,9 @@ class AdminController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $model1 = $this->findModel($id);
+        $model = new TempUserSaveForm();
+        $model->temp_user = $model1;
 
         if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
             Yii::$app->response->format = Response::FORMAT_JSON;
@@ -94,6 +96,7 @@ class AdminController extends Controller
         } elseif ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->temp_user->id]);
         } else {
+
             return $this->render('update', [
                 'model' => $model,
             ]);
@@ -123,9 +126,7 @@ class AdminController extends Controller
     protected function findModel($id)
     {
         if (($model = TempUser::findOne($id)) !== null) {
-            $ret = new TempUserSaveForm();
-            $ret->temp_user = $model;
-            return $ret;
+            return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }

@@ -1,10 +1,12 @@
 <?php
+
 namespace common\models;
 
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\db\Expression;
 use yii\web\IdentityInterface;
 
 /**
@@ -14,11 +16,15 @@ use yii\web\IdentityInterface;
  * @property string $username
  * @property string $password_hash
  * @property string $password_reset_token
+ * @property string $type
  * @property string $email
  * @property string $auth_key
  * @property integer $status
- * @property integer $created_at
- * @property integer $updated_at
+ * @property integer $reference_type
+ * @property integer $nationality
+ * @property integer $debt_collector
+ * @property string $created_at
+ * @property string $updated_at
  * @property string $password write-only password
  */
 class User extends ActiveRecord implements IdentityInterface
@@ -31,7 +37,13 @@ class User extends ActiveRecord implements IdentityInterface
     const TYPE_COMPANY_SUB_USER = 3;
 
     const REFERENCE_TYPE_SIGN_UP = 1;
-    //TODO...
+    const REFERENCE_TYPE_REPORT = 2;
+    const REFERENCE_TYPE_MINORITY_REPORT = 3;
+    const REFERENCE_TYPE_OBSERVATION = 4;
+    const REFERENCE_TYPE_AUTHORIZATION = 5;
+    const REFERENCE_TYPE_ADMIN_STAKEHOLDER = 6;     //admin vette fel stakeholderként
+    const REFERENCE_TYPE_FRONTEND_STAKEHOLDER = 7;     //
+
 
     /**
      * @inheritdoc
@@ -43,11 +55,19 @@ class User extends ActiveRecord implements IdentityInterface
 
     /**
      * @inheritdoc
+     * @return array
      */
     public function behaviors()
     {
         return [
-            TimestampBehavior::className(),
+            [
+                'class'      => TimestampBehavior::className(),
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+                'value'      => new Expression('NOW()'),
+            ],
         ];
     }
 
@@ -57,6 +77,8 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
+            [['username', 'type', 'status', 'email', 'reference_type', 'nationality', 'debt_collector'], 'required'],
+            [['password_hash', 'password_reset_token', 'auth_key', 'created_at', 'updated_at'], 'safe'],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
         ];
@@ -103,7 +125,7 @@ class User extends ActiveRecord implements IdentityInterface
 
         return static::findOne([
             'password_reset_token' => $token,
-            'status' => self::STATUS_ACTIVE,
+            'status'               => self::STATUS_ACTIVE,
         ]);
     }
 
@@ -119,8 +141,9 @@ class User extends ActiveRecord implements IdentityInterface
             return false;
         }
 
-        $timestamp = (int) substr($token, strrpos($token, '_') + 1);
+        $timestamp = (int)substr($token, strrpos($token, '_') + 1);
         $expire = Yii::$app->params['user.passwordResetTokenExpire'];
+
         return $timestamp + $expire >= time();
     }
 

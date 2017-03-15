@@ -18,11 +18,17 @@ class m130524_201442_init extends Migration
             'auth_key' => $this->string(32)->notNull(),
             'password_hash' => $this->string()->notNull(),
             'password_reset_token' => $this->string()->unique(),
-            'email' => $this->string()->notNull()->unique(),
+            'type' => $this->smallInteger()->defaultValue(0),
 
+            'email' => $this->string()->notNull()->unique(),
             'status' => $this->smallInteger()->notNull()->defaultValue(10),
-            'created_at' => $this->integer()->notNull(),
-            'updated_at' => $this->integer()->notNull(),
+
+            'reference_type' => $this->smallInteger()->defaultValue(0),
+            'nationality' => $this->smallInteger()->defaultValue(0),
+            'debt_collector' => $this->smallInteger()->defaultValue(0),
+
+            'created_at' => $this->dateTime()->notNull(),
+            'updated_at' => $this->dateTime()->notNull()->defaultValue("0000-00-00 00:00:00"),
         ], $tableOptions);
     }
 

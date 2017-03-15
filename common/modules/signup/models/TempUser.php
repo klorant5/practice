@@ -2,7 +2,7 @@
 
 namespace common\modules\signup\models;
 
-use common\modules\address\models\UserAddress;
+use common\models\User;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
@@ -37,7 +37,8 @@ class TempUser extends ActiveRecord
     /**
      * @inheritdoc
      */
-    public static function tableName() {
+    public static function tableName()
+    {
         return 'temp_user';
     }
 
@@ -62,7 +63,8 @@ class TempUser extends ActiveRecord
     /**
      * @inheritdoc
      */
-    public function rules() {
+    public function rules()
+    {
         return [
             [['type', 'status', 'reference_type'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
@@ -73,36 +75,57 @@ class TempUser extends ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels() {
+    public function attributeLabels()
+    {
         return [
-            'id' => Yii::t('signup', 'ID'),
-            'email' => Yii::t('signup', 'Email'),
-            'type' => Yii::t('signup', 'Type'),
-            'status' => Yii::t('signup', 'Status'),
+            'id'             => Yii::t('signup', 'ID'),
+            'email'          => Yii::t('signup', 'Email'),
+            'type'           => Yii::t('signup', 'Type'),
+            'status'         => Yii::t('signup', 'Status'),
             'reference_type' => Yii::t('signup', 'Reference Type'),
-            'created_at' => Yii::t('signup', 'Created At'),
-            'updated_at' => Yii::t('signup', 'Updated At'),
+            'created_at'     => Yii::t('signup', 'Created At'),
+            'updated_at'     => Yii::t('signup', 'Updated At'),
         ];
     }
 
     /**
+     * @return bool
+     */
+    public function isCompanyTempUser()
+    {
+        return $this->type == User::TYPE_COMPANY;
+    }
+
+
+    /**
      * @return ActiveQuery
      */
-    public function getTempCompanyDetails() {
+    public function getTempCompanyDetails()
+    {
         return $this->hasOne(TempCompanyDetails::className(), ['temp_user_id' => 'id'])->inverseOf("tempUser");
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getTempPersonDetails() {
+    public function getTempPersonDetails()
+    {
         return $this->hasOne(TempPersonDetails::className(), ['temp_user_id' => 'id'])->inverseOf("tempUser");
     }
 
     /**
      * @return ActiveQuery
      */
-    public function getAddresses() {
-        return $this->hasMany(UserAddress::className(), ["user_id" => "id"]);
+    public function getAddresses()
+    {
+        return $this->hasMany(TempUserAddress::className(), ["temp_user_id" => "id"]);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getContactPhone()
+    {
+        return $this->hasOne(TempUserPhone::className(), ['temp_user_id' => 'id']);
     }
 }

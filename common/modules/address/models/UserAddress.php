@@ -35,6 +35,8 @@ class UserAddress extends ActiveRecord
     const TYPE_OFFICE_ADDRESS = 1;
     const TYPE_BUSINESS_ADDRESS = 2;
     const TYPE_POSTAL_ADDRESS = 3;
+    const TYPE_PERMANENT_ADDRESS = 4;
+    const TYPE_MAILING_ADDRESS = 5;
 
 
     /**
@@ -80,7 +82,7 @@ class UserAddress extends ActiveRecord
             [['building_number', 'floor', 'door'], 'string', 'max' => 10],
             [['name_of_venue', 'district'], 'string', 'max' => 100],
             [['zipcode'], 'string', 'max' => 20],
-//            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 

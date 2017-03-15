@@ -62,7 +62,8 @@ class UserPhone extends ActiveRecord
         return [
             [['user_id'], 'required'],
             [['user_id', 'country_code', 'phone_type', 'verified', 'send_count', 'try_count'], 'integer'],
-            [['verified','send_count', 'try_count','verified_at', 'created_at', 'updated_at'], 'safe'],
+            [['verified','send_count', 'phone_number', 'verification_code', 'try_count','verified_at',
+                'created_at', 'updated_at'], 'safe'],
             [['phone_number'], 'string', 'max' => 20],
             [['verification_code'], 'string', 'max' => 10],
 //            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
