@@ -45,6 +45,8 @@ class CompanySignUpForm extends Model
             $this->street = $faker->streetAddress;
             $this->building_number = $faker->buildingNumber;
             $this->floor = rand(1, 10);
+            $this->location = rand(1, 20);      //???
+            $this->country = rand(1, 20);       //???
             $this->door = rand(1, 10);
             $this->zip = rand(10000, 99999);
             $this->city = "Singapore";
@@ -54,7 +56,6 @@ class CompanySignUpForm extends Model
             $this->contact_phone_number = $faker->randomNumber(9);
             $this->duns_number = $faker->randomNumber(8);
             $this->company_regnum = $faker->randomNumber(8);
-
         }
     }
 

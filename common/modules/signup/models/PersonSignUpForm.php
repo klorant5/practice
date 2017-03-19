@@ -45,6 +45,8 @@ class PersonSignUpForm extends Model
             $this->contact_email = $faker->email;
             $this->street = $faker->streetAddress;
             $this->building_number = $faker->buildingNumber;
+            $this->nationality = rand(1, 20);      //???
+            $this->country = rand(1, 20);       //???
             $this->floor = rand(1, 10);
             $this->door = rand(1, 10);
             $this->zip = rand(10000, 99999);

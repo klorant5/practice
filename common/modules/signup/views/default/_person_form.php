@@ -1,13 +1,13 @@
 <?php
 
-use common\modules\signup\models\CompanySignUpForm;
+use common\helpers\NationalityCountryHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 $form = ActiveForm::begin([
-    'action' => ["/signup/default/handle-person-sign-up"],
+    'action'                 => ["/signup/default/handle-person-sign-up"],
     'enableClientValidation' => false,
-    'enableAjaxValidation' => true
+    'enableAjaxValidation'   => true,
 ]); ?>
 
 
@@ -25,7 +25,7 @@ $form = ActiveForm::begin([
             <div class="hide">
                 <?= $form->field($model, "debt_collector")->hiddenInput()->label(false) ?>
             </div>
-            <?= $form->field($model, 'nationality')->textInput() ?>
+            <?= $form->field($model, 'nationality')->dropDownList(NationalityCountryHelper::getNationalityDropdownValues()) ?>
 
             <?= $this->render("_name_inputs", compact(["form", "model", "signUpType"])) ?>
 

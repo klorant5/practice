@@ -1,5 +1,9 @@
+<?php
+use common\helpers\NationalityCountryHelper;
 
-<?= $form->field($model, 'country')->textInput() ?>
+?>
+
+<?= $form->field($model, 'country')->dropDownList(NationalityCountryHelper::getCountryDropdownValues()) ?>
 <div class="row">
     <div class="col-sm-6">
         <?= $form->field($model, 'city')->textInput() ?>

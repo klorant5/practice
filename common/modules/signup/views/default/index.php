@@ -22,23 +22,23 @@ $this->params['breadcrumbs'][] = $this->title;
 <?= Tabs::widget([
     'items' => [
         [
-            'label'   => 'Company',
+            'label'   => Yii::t('sign up', 'Company'),
             'content' => $this->render("_company_form", [
-                'signUpType' => 1,
+                'signUpType' => SignUpFormFactory::TYPE_COMPANY_FORM,
                 'model'      => SignUpFormFactory::run(SignUpFormFactory::TYPE_COMPANY_FORM),
             ]),
         ],
         [
-            'label'   => 'Person',
+            'label'   => Yii::t('sign up', 'Person'),
             'content' => $this->render("_person_form", [
-                'signUpType' => 2,
+                'signUpType' => SignUpFormFactory::TYPE_PERSON_FORM,
                 'model'      => SignUpFormFactory::run(SignUpFormFactory::TYPE_PERSON_FORM),
             ]),
         ],
         [
-            'label'   => 'Debt collector',
+            'label'   => Yii::t('sign up', 'Debt collector'),
             'content' => $this->render("_company_form", [
-                'signUpType' => 3,
+                'signUpType' => SignUpFormFactory::TYPE_DEBT_COLLECTOR_FORM,
                 'model'      => SignUpFormFactory::run(SignUpFormFactory::TYPE_DEBT_COLLECTOR_FORM),
             ]),
         ],
