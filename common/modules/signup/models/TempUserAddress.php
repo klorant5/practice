@@ -61,10 +61,9 @@ class TempUserAddress extends ActiveRecord
     public function rules()
     {
         return [
-            [['temp_user_id'], 'required'],
+            [['temp_user_id', 'country_id', 'city', 'street', 'building_number', 'zipcode'], 'required'],
             [['temp_user_id', 'country_id'], 'integer'],
-            [['country_id', 'city', 'street', 'street_section', 'building_number', 'floor', 'door', 'name_of_venue',
-                'district', 'zipcode', 'created_at', 'updated_at'], 'safe'],
+            [['street_section', 'floor', 'door', 'name_of_venue', 'district', 'created_at', 'updated_at'], 'safe'],
             [['city'], 'string', 'max' => 30],
             [['street'], 'string', 'max' => 40],
             [['street_section'], 'string', 'max' => 80],

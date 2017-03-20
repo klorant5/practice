@@ -39,7 +39,7 @@ class SignupCest
         $I->see('Email is not a valid email address.', '.help-block');
     }
 
-    public function signupSuccessfully(FunctionalTester $I)
+    /*public function signupSuccessfully(FunctionalTester $I)
     {
         $I->submitForm($this->formId, [
             'SignupForm[username]' => 'tester',
@@ -53,5 +53,5 @@ class SignupCest
         ]);
 
         $I->see('Logout (tester)', 'form button[type=submit]');
-    }
+    }*/
 }

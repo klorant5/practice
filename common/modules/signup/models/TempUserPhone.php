@@ -54,8 +54,9 @@ class TempUserPhone extends ActiveRecord
     public function rules()
     {
         return [
+            [['temp_user_id', 'phone_number', 'phone_type',], 'required'],
             [['temp_user_id'], 'integer'],
-            [['country_code', 'phone_number', 'phone_type', 'created_at', 'updated_at'], 'safe'],
+            [['country_code', 'created_at', 'updated_at'], 'safe'],
             [['phone_number'], 'string', 'max' => 20],
             [['temp_user_id'], 'exist', 'skipOnError' => true, 'targetClass' => TempUser::className(), 'targetAttribute' => ['temp_user_id' => 'id']],
         ];

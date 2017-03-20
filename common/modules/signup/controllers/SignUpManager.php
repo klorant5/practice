@@ -46,7 +46,7 @@ class SignUpManager
     {
 
         $address = new TempUserAddress([
-            'country_id'      => 1, //TODO
+            'country_id'      => $this->form->country,
             'city'            => $this->form->city,
             'street'          => $this->form->street,
             'building_number' => $this->form->building_number,
@@ -64,11 +64,11 @@ class SignUpManager
         $tempUser = new TempUser([
             'email'          => $this->form->contact_email,
             'type'           => $this->userType,
-            'status'         => TempUser::TYPE_NEW,
+            'status'         => TempUser::STATUS_NEW,
             'updated_at'     => '0000-00-00 00:00:00',
             'reference_type' => User::REFERENCE_TYPE_SIGN_UP,
             'tld'            => 1,                               //TODO: dinamikussá tenni
-            'nationality'    => 1, //$this->form->nationality,   //TODO: dinamikussá tenni
+            'nationality'    => $this->userType == User::TYPE_COMPANY ? $this->form->location : $this->form->nationality,
             'debt_collector' => $this->form->debt_collector,
         ]);
         if ($this->userType == User::TYPE_COMPANY) {

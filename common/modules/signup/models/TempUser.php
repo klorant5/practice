@@ -21,7 +21,7 @@ use yii\db\Expression;
  * @property string $updated_at
  * @property integer $tld
  * @property integer $nationality
- * @property integer debt_collector
+ * @property integer $debt_collector
  *
  * @property TempCompanyDetails[] $tempCompanyDetails
  * @property TempPersonDetails[] $tempPersonDetails
@@ -66,8 +66,9 @@ class TempUser extends ActiveRecord
     public function rules()
     {
         return [
+            [['type', 'status', 'reference_type'], 'required'],
             [['type', 'status', 'reference_type'], 'integer'],
-            [['created_at', 'updated_at'], 'safe'],
+            [['debt_collector', 'nationality', 'tld', 'created_at', 'updated_at'], 'safe'],
             [['email'], 'string', 'max' => 100],
         ];
     }

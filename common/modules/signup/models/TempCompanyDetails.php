@@ -58,10 +58,10 @@ class TempCompanyDetails extends ActiveRecord
     public function rules()
     {
         return [
-            [['temp_user_id'], 'required'],
+            [['temp_user_id', 'company_name', 'registration_number', 'duns_number', 'contact_name_title',
+                'contact_name_first', 'contact_name_last'], 'required'],
             [['temp_user_id'], 'integer'],
-            [['created_at', 'updated_at', 'company_name', 'registration_number', 'duns_number', 'contact_name_title',
-                'contact_name_first', 'contact_name_last'], 'safe'],
+            [['created_at', 'updated_at'], 'safe'],
             [['company_name'], 'string', 'max' => 200],
             [['registration_number', 'duns_number'], 'string', 'max' => 30],
             [['temp_user_id'], 'exist', 'skipOnError' => true, 'targetClass' => TempUser::className(), 'targetAttribute' => ['temp_user_id' => 'id']],
@@ -74,14 +74,14 @@ class TempCompanyDetails extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('signup', 'ID'),
-            'temp_user_id' => Yii::t('signup', 'Temp User ID'),
-            'company_name' => Yii::t('signup', 'Company Name'),
+            'id'                  => Yii::t('signup', 'ID'),
+            'temp_user_id'        => Yii::t('signup', 'Temp User ID'),
+            'company_name'        => Yii::t('signup', 'Company Name'),
             'registration_number' => Yii::t('signup', 'Registration Number'),
-            'duns_number' => Yii::t('signup', 'Duns Number'),
-            'contact_name_id' => Yii::t('signup', 'Contact Name ID'),
-            'created_at' => Yii::t('signup', 'Created At'),
-            'updated_at' => Yii::t('signup', 'Updated At'),
+            'duns_number'         => Yii::t('signup', 'Duns Number'),
+            'contact_name_id'     => Yii::t('signup', 'Contact Name ID'),
+            'created_at'          => Yii::t('signup', 'Created At'),
+            'updated_at'          => Yii::t('signup', 'Updated At'),
         ];
     }
 
