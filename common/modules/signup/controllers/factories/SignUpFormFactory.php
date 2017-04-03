@@ -34,7 +34,7 @@ class SignUpFormFactory
             $params['debt_collector'] = 1;
         }
 
-        if (YII_ENV == 'local') {
+        if (YII_ENV == 'local' || YII_ENV == 'test') {
             $params['fake_data'] = true;
         }
 
